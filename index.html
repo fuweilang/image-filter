@@ -1,0 +1,271 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>H5course</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<style>
+		.wrap {
+			position: relative;
+			margin: 50px auto;
+			width: 1200px;
+		}
+		.wrap img {
+			position: absolute;
+			left: 200px;
+			top: 100px;
+			width: 400px;
+			height: 400px;
+		}
+		.aside {
+			position: relative;
+			overflow: scroll;
+			float: right;
+			width: 160px;
+			height: 600px;
+		}
+		.aside li {
+			width: 140px;
+			height: 60px;
+			border-bottom: 1px solid #000;
+			background: #66e1ae;
+			text-align: center;
+			line-height: 60px;
+			cursor: pointer;
+		}
+		.aside li:hover {
+			color: #e8745e;
+		}
+	</style>
+	<script type="text/javascript" src="js/alloyimage.js"></script>
+</head>
+<body>
+	<div class="wrap clearfix">
+		<img id="pic" src="images/3.jpg" alt="" />
+		<div class="aside">
+			<ul>
+				<li id="original">
+					原图
+				</li>
+				<li id="beautySkin">
+					美肤效果
+				</li>
+				<li id="sketch">
+					素描效果
+				</li>
+				<li id="softEnhancement">
+					自然增强
+				</li>
+				<li id="purpleStyle">
+					紫调效果
+				</li>
+				<li id="soften">
+					柔焦效果
+				</li>
+				<li id="vintage">
+					复古效果
+				</li>
+				<li id="blackWhite">
+					黑白效果
+				</li>
+				<li id="lomo">
+					仿lomo
+				</li>
+				<li id="strongEnhancement">
+					亮白增强
+				</li>
+				<li id="strongGray">
+					灰白效果
+				</li>
+				<li id="lightGray">
+					灰色效果
+				</li>
+				<li id="warmAutumn">
+					暖秋效果
+				</li>
+				<li id="carveStyle">
+					木雕效果
+				</li>
+				<li id="rough">
+					粗糙效果
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+
+		// DOM二级添加事件处理，针对谷歌，IE等不同浏览器兼容性处理
+		function addEvent(obj, event, fn, bool) {
+			if(obj.addEventListener) {
+				obj.addEventListener(event, fn, false);
+			} else {
+				obj.attachEvent("on" + event, fn);
+			}
+		}
+
+		function alloyImage() {
+			this.pic = document.getElementById("pic");
+			this.imgSrc = this.pic.src;
+
+			this.originalBtn = document.getElementById("original");
+			this.beautySkinBtn = document.getElementById("beautySkin");
+			this.sketchBtn = document.getElementById("sketch");
+			this.softEnhancementBtn = document.getElementById("softEnhancement");
+			this.purpleStyleBtn = document.getElementById("purpleStyle");
+			this.softenBtn = document.getElementById("soften");
+			this.vintageBtn = document.getElementById("vintage");
+			this.blackWhiteBtn = document.getElementById("blackWhite");
+			this.lomoBtn = document.getElementById("lomo");
+			this.strongEnhancementBtn = document.getElementById("strongEnhancement");
+			this.strongGrayBtn = document.getElementById("strongGray");
+			this.lightGrayBtn = document.getElementById("lightGray");
+			this.warmAutumnBtn = document.getElementById("warmAutumn");
+			this.carveStyleBtn = document.getElementById("carveStyle");
+			this.roughBtn = document.getElementById("rough");
+
+			this.originalFn = this.changeThis(this, this.original);
+			this.beautySkinFn = this.changeThis(this, this.beautySkin);
+			this.sketchFn = this.changeThis(this, this.sketch);
+			this.softEnhancementFn = this.changeThis(this, this.softEnhancement);
+			this.purpleStyleFn = this.changeThis(this, this.purpleStyle);
+			this.softenFn = this.changeThis(this, this.soften);
+			this.vintageFn = this.changeThis(this, this.vintage);
+			this.blackWhiteFn = this.changeThis(this, this.blackWhite);
+			this.lomoFn = this.changeThis(this, this.lomo);
+			this.strongEnhancementFn = this.changeThis(this, this.strongEnhancement);
+			this.strongGrayFn = this.changeThis(this, this.strongGray);
+			this.lightGrayFn = this.changeThis(this, this.lightGray);
+			this.warmAutumnFn = this.changeThis(this, this.warmAutumn);
+			this.carveStyleFn = this.changeThis(this, this.carveStyle);
+			this.roughFn = this.changeThis(this, this.rough);
+		}
+
+		alloyImage.prototype.changeThis = function(obj, fn) {
+			return function() {
+				fn.apply(obj, arguments)
+			}
+		}
+
+		/* 步骤
+		 * 1.让图片回到原始图。2.实例化一个实例化AlloyImage对象。3.修改图片样式并替代原图片
+		 * @param  {[string]} method [给图片所要添加的AlloyImage样式]
+		 */
+		alloyImage.prototype.changeImageStyle = function(method) {
+			this.pic.src = this.imgSrc;			//先回到原图
+			this.$pic = AlloyImage(this.pic);	//实例化AlloyImage对象
+			this.$pic.ps(method).replace(this.pic);
+		}
+
+		// 原图效果
+		alloyImage.prototype.original = function() {
+			this.pic.src = this.imgSrc;
+		}
+
+		// 美肤效果
+		alloyImage.prototype.beautySkin = function() {
+			this.changeImageStyle("softenFace");
+		}
+
+		// 素描效果
+		alloyImage.prototype.sketch = function() {
+			this.changeImageStyle("sketch");
+		}
+
+		// 自然增强效果
+		alloyImage.prototype.softEnhancement = function() {
+			this.changeImageStyle("softEnhancement");
+		}
+
+		// 紫调效果
+		alloyImage.prototype.purpleStyle = function() {
+			this.changeImageStyle("purpleStyle");
+		}
+
+		// 柔焦效果
+		alloyImage.prototype.soften = function() {
+			this.changeImageStyle("soften");
+		}
+
+		// 复古效果
+		alloyImage.prototype.vintage = function() {
+			this.changeImageStyle("vintage");
+		}
+
+		// 黑白效果
+		alloyImage.prototype.blackWhite = function() {
+			this.changeImageStyle("gray");
+		}
+
+		// 仿lomo效果
+		alloyImage.prototype.lomo = function() {
+			this.changeImageStyle("lomo");
+		}
+
+		// 亮白增强效果
+		alloyImage.prototype.strongEnhancement = function() {
+			this.changeImageStyle("strongEnhancement");
+		}
+
+		// 灰白效果
+		alloyImage.prototype.strongGray = function() {
+			this.changeImageStyle("strongGray");
+		}
+
+		// 灰色效果
+		alloyImage.prototype.lightGray = function() {
+			this.changeImageStyle("lightGray");
+		}
+
+		// 暖秋效果
+		alloyImage.prototype.warmAutumn = function() {
+			this.changeImageStyle("warmAutumn");
+		}
+
+		// 木雕效果
+		alloyImage.prototype.carveStyle = function() {
+			this.changeImageStyle("carveStyle");
+		}
+
+		// 粗糙效果
+		alloyImage.prototype.rough = function() {
+			this.changeImageStyle("rough");
+		}
+
+
+
+		var obj = new alloyImage();
+		obj.pic.loadOnce(function(){
+			// 实现各种效果
+			addEvent(obj.originalBtn, "click", obj.originalFn, false)
+
+			addEvent(obj.beautySkinBtn, "click", obj.beautySkinFn, false)
+
+			addEvent(obj.sketchBtn, "click", obj.sketchFn, false)
+
+			addEvent(obj.softEnhancementBtn, "click", obj.softEnhancementFn, false)
+
+			addEvent(obj.purpleStyleBtn, "click", obj.purpleStyleFn, false)
+
+			addEvent(obj.softenBtn, "click", obj.softenFn, false)
+
+			addEvent(obj.vintageBtn, "click", obj.vintageFn, false)
+
+			addEvent(obj.blackWhiteBtn, "click", obj.blackWhiteFn, false)
+
+			addEvent(obj.lomoBtn, "click", obj.lomoFn, false)
+
+			addEvent(obj.strongEnhancementBtn, "click", obj.strongEnhancementFn, false)
+
+			addEvent(obj.strongGrayBtn, "click", obj.strongGrayFn, false)
+
+			addEvent(obj.lightGrayBtn, "click", obj.lightGrayFn, false)
+
+			addEvent(obj.warmAutumnBtn, "click", obj.warmAutumnFn, false)
+
+			addEvent(obj.carveStyleBtn, "click", obj.carveStyleFn, false)
+
+			addEvent(obj.roughBtn, "click", obj.roughFn, false)
+		});
+	</script>
+</body>
+</html>
